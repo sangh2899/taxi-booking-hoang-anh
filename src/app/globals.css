@@ -19,3 +19,8 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Mobile menu toggle */
+.mobile-menu.active {
+  display: block;
+}
