@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { CONTACT_INFO } from '@/utils/constants';
 
 export default function Footer() {

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { CONTACT_INFO } from '@/utils/constants';
 
 // Dữ liệu các điểm đến
 const DESTINATIONS = [
