@@ -21,16 +21,20 @@ const CAR_TYPES = [
   { id: '16cho', name: 'Xe 16 chỗ', price: 'Liên hệ' },
 ];
 
-// Thêm hàm để format ngày tối thiểu (today)
+// Format ngày hiện tại YYYY-MM-DD
 const today = new Date().toISOString().split('T')[0];
+
+// Format giờ hiện tại HH:mm
+const now = new Date();
+const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
 export default function BookingForm() {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
     destination: '',
-    date: '',
-    time: '',
+    date: today, // Set default là ngày hiện tại
+    time: currentTime, // Set default là giờ hiện tại
     carType: ''
   });
 

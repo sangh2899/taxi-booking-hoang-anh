@@ -58,7 +58,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative -mx-4 mb-16">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0 h-[90vh]">
+        <div className="absolute inset-0 z-0 h-[90vh] min-h-[600px]">
           <Image
             src="/images/saigon.jpg"
             alt="Thành phố Sài Gòn"
@@ -69,52 +69,58 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-[90vh] flex items-center">
+        <div className="relative z-10 h-[90vh] min-h-[600px] flex items-center pt-20">
           <div className="max-w-6xl mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 text-white drop-shadow-lg">
-              DỊCH VỤ DU LỊCH HOÀNG ANH
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-8 text-white drop-shadow-lg leading-tight">
+              XE DU LỊCH SÀI GÒN<br className="hidden sm:block" /> HOÀNG ANH
             </h1>
             
             <div className="max-w-3xl mx-auto">
-              <p className="text-2xl text-gray-100 mb-6 drop-shadow-md">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-100 mb-6 drop-shadow-md">
                 Chuyên cung cấp dịch vụ taxi chất lượng cao
               </p>
               
-              <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 mb-8">
-                <p className="text-xl font-medium text-gray-100 mb-4">
+              <div className="bg-black/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
+                <p className="text-base sm:text-xl font-medium text-gray-100 mb-2 sm:mb-4">
                   Phục vụ khu vực:
                 </p>
-                <p className="text-2xl font-bold text-yellow-400 mb-6">
+                <p className="text-lg sm:text-2xl font-bold text-yellow-400 mb-4 sm:mb-6">
                   Quận 12 • Gò Vấp • Hóc Môn - Sài Gòn
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                   <a 
                     href={`tel:${CONTACT_INFO.hotline}`}
-                    className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-bold text-xl transition-all transform hover:scale-105"
+                    className="bg-red-600 hover:bg-red-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-xl transition-all transform hover:scale-105"
                   >
                     📞 Gọi Ngay: {CONTACT_INFO.hotline}
                   </a>
                   <a 
                     href="#booking"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold text-xl transition-all transform hover:scale-105"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-xl transition-all transform hover:scale-105"
                   >
                     🚗 Đặt Xe Trực Tuyến
                   </a>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-6 text-center">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <p className="text-4xl mb-2">🌟</p>
-                  <p className="text-white font-medium">Dịch vụ 24/7</p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-4">
+                  <p className="text-2xl sm:text-4xl mb-1 sm:mb-2">🌟</p>
+                  <p className="text-[10px] sm:text-base text-white font-medium leading-tight">
+                    Dịch vụ<br className="sm:hidden" /> 24/7
+                  </p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <p className="text-4xl mb-2">💎</p>
-                  <p className="text-white font-medium">Xe đời mới</p>
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-4">
+                  <p className="text-2xl sm:text-4xl mb-1 sm:mb-2">💎</p>
+                  <p className="text-[10px] sm:text-base text-white font-medium leading-tight">
+                    Xe đời<br className="sm:hidden" /> mới
+                  </p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <p className="text-4xl mb-2">👨‍✈️</p>
-                  <p className="text-white font-medium">Tài xế chuyên nghiệp</p>
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-4">
+                  <p className="text-2xl sm:text-4xl mb-1 sm:mb-2">👨‍✈️</p>
+                  <p className="text-[10px] sm:text-base text-white font-medium leading-tight">
+                    Tài xế<br className="sm:hidden" /> chuyên nghiệp
+                  </p>
                 </div>
               </div>
             </div>
