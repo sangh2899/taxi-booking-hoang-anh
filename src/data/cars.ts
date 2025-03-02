@@ -17,14 +17,14 @@ export const CARS_DATA = [
     id: 3,
     name: 'Xe 9 Chỗ Limousine',
     description: 'Limousine cao cấp',
-    price: '1.800.000đ',
+    price: 'Liên hệ',
     image: '/images/xe-9-cho.jpg',
   },
   {
     id: 4,
     name: 'Xe 16 Chỗ',
     description: 'Ford Transit',
-    price: 'Liên hệ',
+    price: '1.800.000đ',
     image: '/images/xe-16-cho.jpg',
   }
 ]; 
