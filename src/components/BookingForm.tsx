@@ -2,24 +2,55 @@
 
 import { useState } from 'react';
 
-// Dữ liệu các điểm đến
 const DESTINATIONS = [
-  'Vũng Tàu',
-  'Phan Thiết',
-  'Nha Trang',
-  'Đà Lạt',
-  'Bình Dương',
-  'Đồng Nai',
-  'Long An'
+  { id: 'vung-tau', name: 'Vũng Tàu' },
+  { id: 'phan-thiet', name: 'Phan Thiết' },
+  { id: 'can-tho', name: 'Cần Thơ' },
+  { id: 'tay-ninh', name: 'Tây Ninh' }
 ];
 
-// Các loại xe
 const CAR_TYPES = [
-  { id: '4cho', name: 'Xe 4 chỗ', price: '1.300.000đ' },
-  { id: '7cho', name: 'Xe 7 chỗ', price: '1.500.000đ' },
-  { id: '9cho', name: 'Xe 9 chỗ Limousine', price: '1.800.000đ' },
-  { id: '16cho', name: 'Xe 16 chỗ', price: 'Liên hệ' },
+  { id: '4cho', name: 'Xe 4 chỗ' },
+  { id: '7cho', name: 'Xe 7 chỗ' },
+  { id: '16cho', name: 'Xe 16 chỗ' },
+  { id: 'limousine', name: 'Xe Limousine' },
 ];
+
+interface BookingDataForm {
+  fullName: string;
+  phone: string;
+  destination: string;
+  date: string;
+  time: string;
+  carType: string;
+}
+
+const PRICE_BY_DESTINATION: Record<string, Record<string, string>> = {
+  'vung-tau': {
+    '4cho': '1.300.000đ',
+    '7cho': '1.500.000đ',
+    '16cho': 'Liên hệ',
+    'limousine': 'Liên hệ'
+  },
+  'phan-thiet': {
+    '4cho': '1.800.000đ',
+    '7cho': '2.000.000đ',
+    '16cho': 'Liên hệ',
+    'limousine': 'Liên hệ'
+  },
+  'can-tho': {
+    '4cho': '1.800.000đ',
+    '7cho': '2.000.000đ',
+    '16cho': 'Liên hệ',
+    'limousine': 'Liên hệ'
+  },
+  'tay-ninh': {
+    '4cho': '1.200.000đ',
+    '7cho': '1.400.000đ',
+    '16cho': 'Liên hệ',
+    'limousine': 'Liên hệ'
+  }
+};
 
 // Format ngày hiện tại YYYY-MM-DD
 const today = new Date().toISOString().split('T')[0];
@@ -29,6 +60,10 @@ const now = new Date();
 const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
 export default function BookingForm() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -38,10 +73,52 @@ export default function BookingForm() {
     carType: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const updatePrice = (form: BookingDataForm) => {
+    if (form.destination && form.carType) {
+      setSelectedPrice(PRICE_BY_DESTINATION[form.destination][form.carType]);
+    } else {
+      setSelectedPrice('');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form data:', formData);
-    alert('Đã nhận thông tin đặt xe! Chúng tôi sẽ liên hệ lại sớm.');
+    setLoading(true);
+    setError('');
+    setSuccess(false);
+
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          price: selectedPrice
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Gửi thông tin thất bại');
+      }
+
+      setSuccess(true);
+      setFormData({
+        fullName: '',
+        phone: '',
+        destination: '',
+        date: today,
+        time: currentTime,
+        carType: ''
+      });
+      setSelectedPrice('');
+    } catch (err) {
+      setError('Có lỗi xảy ra. Vui lòng thử lại sau.');
+      console.error('Submission error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,12 +177,15 @@ export default function BookingForm() {
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
             value={formData.destination}
-            onChange={(e) => setFormData({...formData, destination: e.target.value})}
+            onChange={(e) => {
+              setFormData({...formData, destination: e.target.value});
+              updatePrice({...formData, destination: e.target.value});
+            }}
           >
             <option value="">Chọn điểm đến</option>
             {DESTINATIONS.map((dest) => (
-              <option key={dest} value={dest}>
-                {dest}
+              <option key={dest.id} value={dest.id}>
+                {dest.name}
               </option>
             ))}
           </select>
@@ -174,27 +254,49 @@ export default function BookingForm() {
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
             value={formData.carType}
-            onChange={(e) => setFormData({...formData, carType: e.target.value})}
+            onChange={(e) => {
+              setFormData({...formData, carType: e.target.value});
+              updatePrice({...formData, carType: e.target.value});
+            }}
           >
             <option value="">Chọn loại xe</option>
             {CAR_TYPES.map((car) => (
               <option key={car.id} value={car.id}>
-                {car.name} - {car.price}
+                {car.name}
               </option>
             ))}
           </select>
         </div>
+
+        {/* Hiển thị giá */}
+        {selectedPrice && (
+          <div className="mt-4">
+            <span className="font-bold">Giá: </span>
+            <span>{selectedPrice}</span>
+          </div>
+        )}
       </div>
+
+      {error && (
+        <div className="text-red-600 mt-4">{error}</div>
+      )}
+      
+      {success && (
+        <div className="text-green-600 mt-4">
+          Đã nhận thông tin đặt xe! Chúng tôi sẽ liên hệ lại sớm.
+        </div>
+      )}
 
       {/* Nút đặt xe */}
       <div className="mt-8">
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+        <button 
+          type="submit" 
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-blue-400"
         >
-          Đặt Xe Ngay
+          {loading ? 'Đang gửi...' : 'Đặt xe'}
         </button>
       </div>
     </form>
   );
-} 
+}

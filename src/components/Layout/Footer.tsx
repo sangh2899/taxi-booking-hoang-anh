@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p>&copy; {new Date().getFullYear()} XeDuLichSaiGon.com. Tất cả quyền được bảo lưu.</p>
+          <p>&copy; {new Date().getFullYear()} thuexedulichsg.com. Tất cả quyền được bảo lưu.</p>
         </div>
       </div>
     </footer>

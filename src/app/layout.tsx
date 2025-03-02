@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    url: 'https://xedulichsaigon.com',
+    url: 'https://thuexedulichsg.com',
     siteName: 'Xe Du Lịch Sài Gòn',
     title: 'Xe Du Lịch Sài Gòn - Hoàng Anh',
     description: 'Dịch vụ xe du lịch chất lượng cao tại Sài Gòn. Đội xe đời mới, sang trọng, giá cả hợp lý.',

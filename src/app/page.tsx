@@ -6,7 +6,7 @@ import { CARS_DATA } from '@/data/cars';
 export const generateMetadata = () => {
   return {
     alternates: {
-      canonical: 'https://xedulichsaigon.com',
+      canonical: 'https://thuexedulichsg.com',
     },
   }
 }
@@ -15,9 +15,9 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Xe Du Lịch Sài Gòn - Hoàng Anh',
-  image: 'https://xedulichsaigon.com/images/logo.png',
-  '@id': 'https://xedulichsaigon.com',
-  url: 'https://xedulichsaigon.com',
+  image: 'https://thuexedulichsg.com/images/logo.png',
+  '@id': 'https://thuexedulichsg.com',
+  url: 'https://thuexedulichsg.com',
   telephone: CONTACT_INFO.hotline,
   address: {
     '@type': 'PostalAddress',
@@ -51,6 +51,128 @@ const jsonLd = {
     'https://www.facebook.com/hoanganh.hairdesign'
   ]
 }
+
+const ROUTES = {
+  'vung-tau': {
+    name: 'Sài Gòn - Vũng Tàu',
+    prices: {
+      '4cho': {
+        oneWay: '1.300.000đ',
+        twoWay: 'Liên hệ'
+      },
+      '7cho': {
+        oneWay: '1.500.000đ',
+        twoWay: 'Liên hệ'
+      },
+      'limousine': 'Liên hệ'
+    }
+  },
+  'phan-thiet': {
+    name: 'Sài Gòn - Phan Thiết',
+    prices: {
+      '4cho': {
+        oneWay: '1.800.000đ',
+        twoWay: 'Liên hệ'
+      },
+      '7cho': {
+        oneWay: '2.000.000đ',
+        twoWay: 'Liên hệ'
+      },
+      'limousine': 'Liên hệ'
+    }
+  },
+  'can-tho': {
+    name: 'Sài Gòn - Cần Thơ',
+    prices: {
+      '4cho': {
+        oneWay: '1.800.000đ',
+        twoWay: 'Liên hệ'
+      },
+      '7cho': {
+        oneWay: '2.000.000đ',
+        twoWay: 'Liên hệ'
+      },
+      'limousine': 'Liên hệ'
+    }
+  },
+  'tay-ninh': {
+    name: 'Sài Gòn - Tây Ninh',
+    prices: {
+      '4cho': {
+        oneWay: '1.200.000đ',
+        twoWay: 'Liên hệ'
+      },
+      '7cho': {
+        oneWay: '1.400.000đ',
+        twoWay: 'Liên hệ'
+      },
+      'limousine': 'Liên hệ'
+    }
+  }
+};
+
+interface RouteProps {
+  name: string;
+  prices: {
+    '4cho': {
+      oneWay: string;
+      twoWay: string;
+    };
+    '7cho': {
+      oneWay: string;
+      twoWay: string;
+    };
+    limousine: string;
+  };
+}
+
+const PriceCard = ({ route }: { route: RouteProps }) => (
+  <div className="bg-white p-6 rounded-lg shadow-md">
+    <h3 className="text-xl font-bold mb-4">{route.name}</h3>
+    <ul className="space-y-3">
+      <li>
+        <p className="font-semibold">Xe 4 chỗ:</p>
+        <ul className="ml-4 space-y-1">
+          <li className="flex justify-between">
+            <span>• 1 chiều</span>
+            <span className="font-semibold">{route.prices['4cho'].oneWay}</span>
+          </li>
+          <li className="flex justify-between">
+            <span>• 2 chiều</span>
+            <span className="font-semibold text-blue-600">{route.prices['4cho'].twoWay}</span>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p className="font-semibold">Xe 7 chỗ:</p>
+        <ul className="ml-4 space-y-1">
+          <li className="flex justify-between">
+            <span>• 1 chiều</span>
+            <span className="font-semibold">{route.prices['7cho'].oneWay}</span>
+          </li>
+          <li className="flex justify-between">
+            <span>• 2 chiều</span>
+            <span className="font-semibold text-blue-600">{route.prices['7cho'].twoWay}</span>
+          </li>
+        </ul>
+      </li>
+      <li className="flex justify-between">
+        <span className="font-semibold">Xe 16 chỗ:</span>
+        <span className="font-semibold text-blue-600">Liên hệ</span>
+      </li>
+      <li className="flex justify-between">
+        <span className="font-semibold">Xe Limousine:</span>
+        <span className="font-semibold text-blue-600">Liên hệ</span>
+      </li>
+    </ul>
+    <a 
+      href={`tel:${CONTACT_INFO.hotline}`}
+      className="inline-block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors mt-5"
+    >
+      📞 Đặt xe ngay
+    </a>
+  </div>
+);
 
 export default function Home() {
   return (
@@ -174,77 +296,10 @@ export default function Home() {
       </section>
 
       {/* Tuyến đường và Bảng giá */}
-      <div className="grid md:grid-cols-2 gap-8 mb-16">
-        {/* Tuyến đường */}
-        <section className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6 text-blue-700">Tuyến Đường Phổ Biến</h2>
-          <ul className="space-y-4">
-            <li className="flex items-center">
-              <span className="mr-3 text-2xl">🏖️</span>
-              <div>
-                <p className="font-semibold">Sài Gòn - Vũng Tàu</p>
-                <p className="text-gray-600">Thời gian: ~2 giờ</p>
-              </div>
-            </li>
-            <li className="flex items-center">
-              <span className="mr-3 text-2xl">🌊</span>
-              <div>
-                <p className="font-semibold">Sài Gòn - Phan Thiết</p>
-                <p className="text-gray-600">Thời gian: ~4 giờ</p>
-              </div>
-            </li>
-            <li className="flex items-center">
-              <span className="mr-3 text-2xl">🏖️</span>
-              <div>
-                <p className="font-semibold">Sài Gòn - Nha Trang</p>
-                <p className="text-gray-600">Thời gian: ~7 giờ</p>
-              </div>
-            </li>
-            <li className="flex items-center">
-              <span className="mr-3 text-2xl">🌲</span>
-              <div>
-                <p className="font-semibold">Sài Gòn - Đà Lạt</p>
-                <p className="text-gray-600">Thời gian: ~6 giờ</p>
-              </div>
-            </li>
-          </ul>
-        </section>
-
-        {/* Bảng giá */}
-        <section className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6 text-blue-700">Bảng Giá Tham Khảo</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="font-bold mb-4">Giá một chiều:</h3>
-              <ul className="space-y-2">
-                <li className="flex justify-between">
-                  <span>• Xe 4 chỗ</span>
-                  <span className="font-semibold">1.300.000đ</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>• Xe 7 chỗ</span>
-                  <span className="font-semibold">1.500.000đ</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>• Xe 9 chỗ Limousine</span>
-                  <span className="font-semibold">1.800.000đ</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>• Xe 16 chỗ</span>
-                  <span className="font-semibold text-blue-600">Liên hệ báo giá</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Ưu đãi đặc biệt:</h3>
-              <ul className="space-y-2 text-blue-600">
-                <li>✨ Giảm 20% khi đặt 2 chiều</li>
-                <li>✨ Hỗ trợ giá đặc biệt cho khách đi khám bệnh</li>
-                <li>✨ Giá ưu đãi cho khách đặt xe thường xuyên</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        {Object.values(ROUTES).map((route, index) => (
+          <PriceCard key={index} route={route} />
+        ))}
       </div>
 
       {/* CTA Section */}

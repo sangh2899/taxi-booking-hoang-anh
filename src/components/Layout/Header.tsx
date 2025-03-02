@@ -30,7 +30,7 @@ export default function Header() {
                 className="object-contain"
               />
             </div>
-            <span className="sr-only">XeDuLichSaiGon.com</span>
+            <span className="sr-only">thuexedulichsg.com</span>
           </Link>
 
           {/* Desktop Menu */}
